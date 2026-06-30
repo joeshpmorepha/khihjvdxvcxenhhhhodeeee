@@ -1,0 +1,229 @@
+<html lang="es">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="cache-control" content="no-cache">
+    <meta http-equiv="pragma" content="no-cache">
+    <meta name="robots" content="noindex">
+    <meta name="referrer" content="none">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no">
+    <title>Telegram-cricXfootball</title>
+    <script src="//cdn.bitmovin.com/player/web/8/bitmovinplayer.js"></script>
+ <style>
+  *{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+html{
+    width:100%;
+    height:100%;
+    overflow:hidden;
+}
+
+body{
+    width:100%;
+    height:100%;
+    margin:0;
+    padding:0;
+    overflow:hidden;
+    background:#000;
+    position:fixed;
+    inset:0;
+    touch-action:manipulation;
+}
+
+#wrapper{
+    position:fixed;
+    inset:0;
+    width:100vw;
+    height:100dvh;
+    overflow:hidden;
+    background:#000;
+}
+
+@supports not (height:100dvh){
+    #wrapper{
+        height:100vh;
+    }
+}
+
+#player{
+    width:100%;
+    height:100%;
+    overflow:hidden;
+}
+
+.bmpui-ui-uicontainer,
+.bmpui-player-wrapper{
+    width:100%!important;
+    height:100%!important;
+}
+     
+video{
+    width:100%!important;
+    height:100%!important;
+}   
+
+   #status{
+    position:absolute;
+    inset:0;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    gap:18px;
+    background:#000;
+    z-index:999;
+}
+
+.spinner{
+    width:46px;
+    height:46px;
+    border:4px solid rgba(255,255,255,.15);
+    border-top-color:#ff0000;
+    border-radius:50%;
+    animation:spin .8s linear infinite;
+}
+
+@keyframes spin{
+    to{
+        transform:rotate(360deg);
+    }
+}
+
+.s-title{
+    color:#fff;
+    font-size:18px;
+    font-weight:600;
+}  
+   </style>     
+</head>
+<body>
+
+    <div id="wrapper">
+         <div id="status">
+        <div class="spinner"></div>
+        <div class="s-title">Loading...</div>
+    </div>
+ 
+        <div id="player"></div>
+    </div>
+ <script src="https://lchdxfootball.pages.dev/cricxfootball.js"></script>
+ <script src="https://lchdxfootball.pages.dev/configurecxf.js"></script> 
+
+<script>
+const SECURITY_TELEGRAM = "https://telegram.me/cricxfootballbackup";
+
+const VALID_CHANNELS = [
+    "https://telegram.me/cricxfootballbackup",
+    "https://whatsapp.com/channel/0029Vb8CQb5IHphP4gmdBt17",
+    "https://telegram.me/+L7agYSmJVRNkZDFl",
+];
+
+if (typeof DOMAIN_CONFIG === "undefined"  typeof TELEGRAM_CONFIG === "undefined") {
+    window.location.href = SECURITY_TELEGRAM;
+}
+
+if (
+    window.top !== window.self 
+    !DOMAIN_CONFIG.allowedDomains.includes(window.location.hostname)
+) {
+    window.location.href = SECURITY_TELEGRAM;
+}
+
+if (!VALID_CHANNELS.includes(TELEGRAM_CONFIG.popupChannel)) {
+    window.location.href = SECURITY_TELEGRAM;
+}
+
+if (confirm("Join Our Telegram Channel @cricXfootball")) {
+    window.location.href = TELEGRAM_CONFIG.popupChannel;
+}
+  
+const decryptionKey = "gf676rc7gr4grg76r6ag56gg8f76713f";
+
+function decryptBase64(encodedStr, key) {
+    const encrypted = atob(encodedStr);
+    let decrypted = "";
+
+    for (let i = 0; i < encrypted.length; i++) {
+        decrypted += String.fromCharCode(
+            encrypted.charCodeAt(i) ^
+            key.charCodeAt(i % key.length)
+        );
+    }
+
+    return JSON.parse(decrypted);
+}
+
+function getURLParameter(name) {
+    return new URLSearchParams(window.location.search).get(name);
+}
+
+const id = getURLParameter("id");
+
+if (!encodedChannelData[id]) {
+    alert("Invalid ID");
+    location.href = SECURITY_TELEGRAM;
+}
+
+const selectedData = decryptBase64(
+    encodedChannelData[id],
+    decryptionKey
+);
+
+const url = selectedData.ManifestURI;
+const ck_keyid = Object.keys(selectedData.DRMKeys)[0];
+const ck_key = selectedData.DRMKeys[ck_keyid];
+</script>
+
+<script>
+        function override(url) {
+            var wm = document.querySelector('button.bmpui-ui-watermark');
+            if (wm) wm.setAttribute('disabled', 'disabled');
+
+            if (url.indexOf('licensing.bitmovin.com/licensing') > -1)
+                return 'data:text/plain;charset=utf-8;base64,eyJzdGF0dXMiOiJncmFudGVkIiwibWVzc2FnZSI6IlRoZXJlIHlvdSBnby4ifQ==';
+            if (url.indexOf('licensing.bitmovin.com/impression') > -1)
+                return 'data:text/plain;charset=utf-8;base64,eyJzdGF0dXMiOiJncmFudGVkIiwibWVzc2FnZSI6IlRoZXJlIHlvdSBnby4ifQ==';
+            return url;
+        }
+
+        var _xhrOpen = XMLHttpRequest.prototype.open;
+        XMLHttpRequest.prototype.open = function () {
+            arguments[1] = override(arguments[1]);
+            return _xhrOpen.apply(this, arguments);
+        };
+
+        document.addEventListener('DOMContentLoaded', function () {
+            var config = {
+                key: '11d3698c-efdf-42f1-8769-54663995de2b',
+                playback: { 
+                    autoplay: true, 
+                    muted: false 
+                }
+            };
+
+            var source = {
+                dash: url,
+                drm: {
+                    clearkey: [{ 
+                        keyId: ck_keyid, 
+                        key: ck_key 
+                    }]
+                }
+            };
+
+            var player = new bitmovin.player.Player(document.getElementById('player'), config);
+player.load(source).then(function() {
+                document.getElementById('status').style.display = 'none';
+                console.log("Reproduciendo: TUDN");
+            }).catch(function (err) {
+                document.getElementById('status').innerText = "Error loading the channel";
+                console.error('Bitmovin error:', err);
+            });
+        });
+    </script>
+</body>
+</html>
