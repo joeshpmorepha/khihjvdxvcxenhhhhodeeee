@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Video Frame</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    background:#000;
+    display:flex;
+    justify-content:center;
+    padding:15px;
+}
+
+/* White border */
+.frame{
+    width:100%;
+    max-width:900px;
+    height:320px;       /* Visible height */
+    border:3px solid #fff;
+    border-radius:12px;
+    overflow:hidden;
+    background:#000;
+}
+
+/* Crop the webpage */
+.frame iframe{
+    width:100%;
+    height:900px;       /* Full webpage height */
+    border:none;
+    transform:translateY(0px); /* Increase if video isn't at very top */
+}
+</style>
+</head>
+<body>
+
+<div class="frame">
+    <iframe
+        src="https://m.twitch.tv/infinityrivals"
+        allow="autoplay; fullscreen"
+        allowfullscreen>
+    </iframe>
+</div>
+
+</body>
+</html>
