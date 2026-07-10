@@ -3,45 +3,36 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Embedded Player</title>
 
 <style>
-html,body{
-    margin:0;
-    padding:0;
-    overflow:hidden;
-    background:#000;
+html, body {
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background: #000;
+    height: 100%;
 }
 
-.player{
-    position:relative;
-    width:100%;
-    height:200px;
-    overflow:hidden;
-}
-
-.player iframe{
-    position:absolute;
-    top:-40px;          /* Hide 40px from the top */
-    left:0;
-    width:100%;
-    height:calc(250px + 40px);
-    border:0;
-    display:block;
+#player {
+    width: 100%;
+    height: 260px; /* Change as needed */
+    border: none;
+    display: block;
 }
 </style>
 </head>
+
 <body>
 
-<div class="player">
 <iframe
-    src="https://nickn9i0.q9xj5zaboutj0gkv6planned.cfd/football/fifa-world-cup-4374248/spain-vs-belgium.html?icg=SU4"
+    id="player"
+    src="https://sportspass.site/soccer/fifa2026.html"
     scrolling="no"
     sandbox="allow-scripts allow-same-origin allow-forms allow-presentation allow-fullscreen"
-    allow="autoplay; fullscreen; encrypted-media"
-    referrerpolicy="no-referrer"
-    loading="eager">
+    allow="fullscreen; autoplay; encrypted-media"
+    referrerpolicy="no-referrer">
 </iframe>
-</div>
 
 </body>
 </html>
