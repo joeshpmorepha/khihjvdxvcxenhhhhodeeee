@@ -2,51 +2,46 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Telegram-cricXfootball</title>
-
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Embedded iframe with back prevention</title>
 <style>
-html,body{
-    margin:0;
-    padding:0;
-    overflow:hidden;
-    background:#000;
+html, body {
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background: #000;
 }
-iframe{
-    width:100vw;
-    height:200px;
-    border:0;
-    display:block;
-    overflow:hidden;
+iframe {
+  width: 100vw;
+  height: 260px; /* Adjust height as needed */
+  border: 0;
+  display: block;
+  overflow: hidden;
 }
 </style>
 </head>
 <body>
 
-<iframe
-    id="myIframe"
-    src="https://nickn9i0.q9xj5zaboutj0gkv6planned.cfd/football/fifa-world-cup-4374248/spain-vs-belgium.html?icg=SU4"
-    scrolling="no"
-    sandbox="allow-scripts allow-same-origin allow-forms allow-presentation allow-fullscreen"
-    allow="autoplay; fullscreen; encrypted-media"
-    referrerpolicy="no-referrer">
-</iframe>
+<iframe id="myIframe" src="https://nickn9i0.q9xj5zaboutj0gkv6planned.cfd/football/fifa-world-cup-4374248/spain-vs-belgium.html?icg=SU4" sandbox="allow-scripts allow-same-origin allow-forms allow-popups"></iframe>
 
 <script>
+// If the iframe is same-origin, prevent back navigation
 const iframe = document.getElementById('myIframe');
 
-iframe.addEventListener('click', () => {
-    try {
-        // Access the iframe's current URL
-        const iframeUrl = iframe.contentWindow.location.href;
-        // Redirect the parent window to the iframe's URL
-        window.location.href = iframeUrl;
-    } catch (e) {
-        // If cross-origin, we can't access iframe content
-        // As an alternative, redirect to the iframe's src URL
-        window.location.href = iframe.src;
-    }
-});
+iframe.onload = function() {
+  try {
+    // Access iframe's window object
+    const iframeWindow = iframe.contentWindow;
+    // Inject script to prevent back button (only works if same-origin)
+    iframeWindow.history.pushState(null, null, iframeWindow.location.href);
+    iframeWindow.onpopstate = function() {
+      iframeWindow.history.go(1);
+    };
+  } catch (e) {
+    // Cross-origin, cannot access iframe content
+    console.warn('Cannot access iframe content due to cross-origin restrictions.');
+  }
+};
 </script>
 
 </body>
